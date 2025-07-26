@@ -7,10 +7,13 @@ import os
 
 
 ## call the gemini models
-llm=ChatGoogleGenerativeAI(model="gemini-1.5-flash",
-                           verbose=True,
-                           temperature=0.5,
-                           google_api_key=os.getenv("GOOGLE_API_KEY"))
+from litellm import completion
+
+llm = {
+    "model": "gemini/gemini-1.5-flash",  # or "gemini/gemini-1.5-flash"
+    "api_key": os.getenv("LITELLM_API_KEY")
+}
+
 
 # Creating a senior researcher agent with memory and verbose mode
 
@@ -47,4 +50,3 @@ news_writer = Agent(
   llm=llm,
   allow_delegation=False
 )
-

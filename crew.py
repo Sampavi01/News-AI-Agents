@@ -1,26 +1,27 @@
 from crewai import Crew, Process
 from tasks import research_task, write_task
 from agents import news_researcher, news_writer
-from langchain_google_genai import ChatGoogleGenerativeAI
 import os
 
-# Create the Gemini LLM instance with your Google API key
-llm = ChatGoogleGenerativeAI(
-    model="gemini-1.5-flash",
-    verbose=True,
-    temperature=0.5,
-    google_api_key=os.getenv("GOOGLE_API_KEY")
-)
+# Optional: Load environment variables
+from dotenv import load_dotenv
+load_dotenv()
 
-# Pass the llm to Crew
+from litellm import completion
+
+# No need to pass LLM manually, CrewAI will use LiteLLM's default config
 crew = Crew(
     agents=[news_researcher, news_writer],
     tasks=[research_task, write_task],
     process=Process.sequential,
-    llm=llm,         
-    verbose=True     # optional but helps debug
+    verbose=True,
+    # No llm= here — let CrewAI internally call litellm.completion()
 )
+
+# Set model name and let CrewAI auto-pick LiteLLM provider
+os.environ["LITELLM_MODEL"] = "gemini/gemini-1.5-flash"
 
 # Kickoff the process
 result = crew.kickoff(inputs={'topic': 'AI in healthcare'})
 print(result)
+
