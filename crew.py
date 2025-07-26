@@ -1,16 +1,26 @@
-from crewai import Crew,Process
-from tasks import research_task,write_task
-from agents import news_researcher,news_writer
+from crewai import Crew, Process
+from tasks import research_task, write_task
+from agents import news_researcher, news_writer
+from langchain_google_genai import ChatGoogleGenerativeAI
+import os
 
-## Forming the tech focused crew with some enhanced configuration
-crew=Crew(
-    agents=[news_researcher,news_writer],
-    tasks=[research_task,write_task],
-    process=Process.sequential,
-
+# Create the Gemini LLM instance with your Google API key
+llm = ChatGoogleGenerativeAI(
+    model="gemini-1.5-flash",
+    verbose=True,
+    temperature=0.5,
+    google_api_key=os.getenv("GOOGLE_API_KEY")
 )
 
-## starting the task execution process wiht enhanced feedback
+# Pass the llm to Crew
+crew = Crew(
+    agents=[news_researcher, news_writer],
+    tasks=[research_task, write_task],
+    process=Process.sequential,
+    llm=llm,         
+    verbose=True     # optional but helps debug
+)
 
-result=crew.kickoff(inputs={'topic':'AI in healthcare'})
+# Kickoff the process
+result = crew.kickoff(inputs={'topic': 'AI in healthcare'})
 print(result)
