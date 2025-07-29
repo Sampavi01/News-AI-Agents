@@ -2,19 +2,12 @@ from crewai import Agent
 from tools import tool
 from dotenv import load_dotenv
 load_dotenv()
-from langchain_google_genai import ChatGoogleGenerativeAI
 import os
-
 
 ## call the gemini models
 from litellm import completion
 
-llm = {
-    "model": "gemini/gemini-1.5-flash",  # or "gemini/gemini-1.5-flash"
-    "api_key": os.getenv("LITELLM_API_KEY")
-}
-
-
+llm = "gemini/gemini-1.5-flash"
 # Creating a senior researcher agent with memory and verbose mode
 
 news_researcher=Agent(
