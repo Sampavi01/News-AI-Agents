@@ -13,6 +13,7 @@ Empowering autonomous AI agents to search, analyze, and process information from
 - **Seamless CrewAI Integration:** Build, manage, and coordinate multiple AI agents with CrewAI.
 - **Advanced Reasoning:** Utilize Google Gemini for state-of-the-art language understanding and reasoning.
 - **Live Internet Search:** Integrate SerperDevTool for real-time web search (requires `SERPER_API_KEY`).
+- **LLM API Integration:** Easily connect to LLM providers (e.g., Google Gemini) using `LITELLM_API_KEY` for secure and flexible access.
 - **Extensible Architecture:** Easily add new agents, tools, and tasks to suit your workflow.
 
 ## Directory Structure
@@ -37,27 +38,36 @@ CrewAI-Projects/
 
 ```powershell
 git clone https://github.com/Sampavi01/News-AI-Agents.git
-cd CrewAI-Projects
+cd CrewAI-Projects/crewgooglegemini
 ```
 
 ### 2. Install Dependencies
 
 ```powershell
-pip install -r crewgooglegemini/requirements.txt
+pip install -r requirements.txt
 ```
 
 ### 3. Configure Environment Variables
 
-Create a `.env` file in the project root (or set environment variables directly) with your Serper API key:
+
+Create a `.env` file in the `crewgooglegemini` directory (or set environment variables directly) with your API keys:
 
 ```env
+# SerperDevTool for web search
 SERPER_API_KEY=your_serper_api_key_here
+
+# LITELLM for LLM access (e.g., Google Gemini, OpenAI, etc.)
+LITELLM_API_KEY=your_litellm_api_key_here
 ```
+
+> **Note:**
+> - `SERPER_API_KEY` is required for internet search capabilities.
+> - `LITELLM_API_KEY` is required for connecting to LLM providers via LiteLLM (used for Google Gemini or other supported models).
 
 ### 4. Run the Main Script
 
 ```powershell
-python crewgooglegemini/crew.py
+python crew.py
 ```
 
 ## Usage Guide
