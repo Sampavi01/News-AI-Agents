@@ -1,27 +1,35 @@
+# crew.py (Final Corrected Version)
+
 from crewai import Crew, Process
-from tasks import research_task, write_task
-from agents import news_researcher, news_writer
-import os
+from agents import content_strategist, news_researcher, news_writer, editor
+from tasks import plan_task, research_task, write_task, edit_task
+from litellm_model import llm
 
-# Optional: Load environment variables
-from dotenv import load_dotenv
-load_dotenv()
-
-from litellm import completion
-
-# No need to pass LLM manually, CrewAI will use LiteLLM's default config
+# Define the Crew
 crew = Crew(
-    agents=[news_researcher, news_writer],
-    tasks=[research_task, write_task],
-    process=Process.sequential,
-    verbose=True,
-    # No llm= here — let CrewAI internally call litellm.completion()
+    # <<< THE FIX IS HERE: The 'editor' agent has been removed from this list.
+    agents=[content_strategist, news_researcher, news_writer],
+    tasks=[plan_task, research_task, write_task, edit_task],
+    process=Process.hierarchical,  # Use a hierarchical process
+    manager_llm=llm,
+    manager_agent=editor,          # The 'editor' is correctly designated as the manager here.
+    verbose=True
 )
 
-# Set model name and let CrewAI auto-pick LiteLLM provider
-os.environ["LITELLM_MODEL"] = "gemini/gemini-1.5-flash"
+# Function to run the crew
+def run_crew(topic):
+    result = crew.kickoff(inputs={'topic': topic})
+    return result
 
-# Kickoff the process
-result = crew.kickoff(inputs={'topic': 'AI in healthcare'})
-print(result)
-
+# Example of running from the command line
+if __name__ == "__main__":
+    try:
+        topic_input = input("What is the topic for the tech article? ")
+        if topic_input:
+            final_result = run_crew(topic_input)
+            print("\n\n########################")
+            print("## Here is the Final Result:")
+            print("########################\n")
+            print(final_result)
+    except Exception as e:
+        print(f"An error occurred: {e}")
