@@ -1,22 +1,19 @@
-# CrewAI-Projects
+# CrewAI-Projects ✨
 
-Empowering autonomous AI agents to search, analyze, and process information from the web using CrewAI, Google Gemini, and SerperDevTool.
+Autonomous AI agents for smart web search, analysis, and task execution using **CrewAI**, **Google Gemini**, and **SerperDevTool**.  
 
----
+## Key Features 🚀
+- 🤖 **CrewAI Agents:** Build & coordinate multiple AI agents effortlessly.  
+- 🧠 **Advanced Reasoning:** Leverage Google Gemini for deep language understanding.  
+- 🌐 **Live Web Search:** Real-time info with SerperDevTool (`SERPER_API_KEY`).  
+- 🔗 **LLM Integration:** Connect securely to LLMs via `LITELLM_API_KEY`.  
+- ⚙️ **Extensible:** Add new agents, tools, and tasks easily. 
 
-## Overview
+### 🌐 Streamlit Demo (app.py)
+![Streamlit Demo](ezgif.com-speed%20(11).gif)
 
-**CrewAI-Projects** is a modular framework for orchestrating AI agents capable of performing complex, multi-step tasks. Leveraging the power of [CrewAI](https://github.com/joaomdmoura/crewai), Google Gemini, and SerperDevTool, this project enables agents to autonomously search the internet, extract insights, and collaborate to solve real-world problems.
+## 📂 Directory Structure
 
-## Key Features
-
-- **Seamless CrewAI Integration:** Build, manage, and coordinate multiple AI agents with CrewAI.
-- **Advanced Reasoning:** Utilize Google Gemini for state-of-the-art language understanding and reasoning.
-- **Live Internet Search:** Integrate SerperDevTool for real-time web search (requires `SERPER_API_KEY`).
-- **LLM API Integration:** Easily connect to LLM providers (e.g., Google Gemini) using `LITELLM_API_KEY` for secure and flexible access.
-- **Extensible Architecture:** Easily add new agents, tools, and tasks to suit your workflow.
-
-## Directory Structure
 
 ```text
 CrewAI-Projects/
@@ -27,8 +24,7 @@ CrewAI-Projects/
     ├── crew.py           # Crew orchestration logic
     ├── requirements.txt  # Python dependencies
     ├── tasks.py          # Task definitions
-    ├── test.py           # Example/test script
-    ├── tools.py          # Tool integrations (e.g., SerperDevTool)
+    ├── tools.py          # Tool integrations (e.g.,SerperDevTool)
     └── __pycache__/
 ```
 
@@ -69,6 +65,8 @@ LITELLM_API_KEY=your_litellm_api_key_here
 ```powershell
 python crew.py
 ```
+### 💻 CLI Demo (crew.py)
+![CLI Demo](ezgif.com-speed%20(10).gif)
 
 ## Usage Guide
 
