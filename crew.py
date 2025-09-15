@@ -1,20 +1,15 @@
-# crew.py (Final Corrected Version)
+# crew.py 
 
 from crewai import Crew, Process
-from agents import  news_researcher, news_writer, editor
-from tasks import  research_task, write_task, edit_task
+from agents import  news_researcher, news_writer
+from tasks import  research_task, write_task
 from litellm_model import llm
 
 # Define the Crew
 crew = Crew(
-    # <<< THE FIX IS HERE: The 'editor' agent has been removed from this list.
-    agents=[ news_researcher, news_writer],
-    tasks=[ research_task, write_task, edit_task],
-    process=Process.hierarchical,  # Use a hierarchical process
-    manager_llm=llm,
-    manager_agent=editor,          # The 'editor' is correctly designated as the manager here.
-    verbose=True,
-    cache=True
+    agents=[news_researcher, news_writer],  # sufficient
+    tasks=[research_task, write_task], # all tasks included
+    manager_llm=llm  # handles orchestration
 )
 
 # Function to run the crew
